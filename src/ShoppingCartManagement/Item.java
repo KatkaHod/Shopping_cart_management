@@ -15,7 +15,9 @@ public class Item {
 
 
     //setPrice(price), the exception (price must be greater than 0) is added in setPrice.
-    public Item(String description, BigDecimal price, LocalDateTime reservationTime, Boolean isOnStock, int quantityOfItem, Category category) {
+    public Item(String description, BigDecimal price, LocalDateTime reservationTime, Boolean isOnStock, int quantityOfItem, Category category)
+            throws ShoppingCartException {
+
         this.description = description;
         setPrice(price);
         this.reservationTime = reservationTime;
@@ -24,7 +26,7 @@ public class Item {
         this.category = category;
     }
 
-    public Item(String description, BigDecimal price) {
+    public Item(String description, BigDecimal price) throws ShoppingCartException {
         this(description,price, LocalDateTime.now(),true,1, Category.OTHERS);
     }
 
@@ -43,9 +45,9 @@ public class Item {
 
 
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(BigDecimal price) throws ShoppingCartException {
         if(price.compareTo(BigDecimal.ZERO) <= 0) {
-            throw new IllegalArgumentException("Price must be greater than zero!" + " Provided price: " + price);
+            throw new ShoppingCartException("Price must be greater than zero!" + " Provided price: " + price);
         }
         this.price = price;
     }
