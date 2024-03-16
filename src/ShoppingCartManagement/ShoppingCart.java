@@ -39,7 +39,8 @@ public class ShoppingCart {
     }
 
 
-    public BigDecimal totalPrice() {
+    //total price of items in ShoppingCart
+    public BigDecimal TotalPrice() {
         BigDecimal totalPrice = BigDecimal.ZERO;
         for (Item item : items) {
              totalPrice = totalPrice.add(item.getPrice());
@@ -49,7 +50,12 @@ public class ShoppingCart {
     }
 
 
-
-
+    // items -> List
+    public int itemsCount () {
+        return items.size();
     }
+
+
+
+}
 

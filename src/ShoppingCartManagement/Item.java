@@ -13,9 +13,11 @@ public class Item {
     private Category category = Category.OTHERS;
 
 
+
+    //setPrice(price), the exception (price must be greater than 0) is added in setPrice.
     public Item(String description, BigDecimal price, LocalDateTime reservationTime, Boolean isOnStock, int quantityOfItem, Category category) {
         this.description = description;
-        this.price = price;
+        setPrice(price);
         this.reservationTime = reservationTime;
         this.isOnStock = isOnStock;
         this.quantityOfItem = quantityOfItem;
@@ -39,9 +41,15 @@ public class Item {
         return price;
     }
 
+
+
     public void setPrice(BigDecimal price) {
+        if(price.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new IllegalArgumentException("Price must be greater than zero!" + " Provided price: " + price);
+        }
         this.price = price;
     }
+
 
     public LocalDateTime getReservationTime() {
         return reservationTime;
