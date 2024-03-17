@@ -1,0 +1,5 @@
+2023-10-19T14:15:35;14.8;3;FOOD;Koblih s marmeládou;ano
+2023-10-19T14:18:05;21.5;5;FOOD;Tyčinka müsli;ano
+2023-10-19T14:20:55;135.0;1;CONSUMABLES;Tekuté mýdlo (250 ml);ne
+2023-10-19T14:25:40;80.0;10;OTHERS;Kartáček na zuby;ano
+2023-10-19T14:30:45;138.0;1;CONSUMABLES;Opalovací krém;ne

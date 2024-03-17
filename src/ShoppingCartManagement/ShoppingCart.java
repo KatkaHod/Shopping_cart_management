@@ -1,11 +1,44 @@
+
 package ShoppingCartManagement;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class ShoppingCart {
     private List <Item> items = new ArrayList<>();
+
+    /*
+    > BufferedReader - improves performance when loading Java files,
+         allows line-by-line reading, supports different encodings and offers a simple interface.
+     > Always prepare exceptions when working with files.
+     */
+    public void loadContentFromFile(String fileName) throws ShoppingCartException {
+        int lineCounter = 0;
+        try (Scanner scanner = new Scanner(new BufferedReader(new FileReader(fileName))))  {
+            while(scanner.hasNextLine()) {
+                lineCounter++;
+
+                String line = scanner.nextLine();
+                System.out.println(line);
+                String [] parts = line.split(",");
+
+                if (parts.length != 6) throw  new ShoppingCartException(
+                        "Nesprávný počet položek na řádku číslo: " + lineCounter + ": "+line+"!");
+
+            }
+
+        } catch (FileNotFoundException e) {
+            System.err.println("Error while reading file: " + e.getLocalizedMessage());
+        }
+    }
+
+
 
 
     //add item
