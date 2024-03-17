@@ -1,20 +1,19 @@
 
 package ShoppingCartManagement;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.time.LocalDateTime;
 
+
 public class ShoppingCart {
     private List <Item> items = new ArrayList<>();
 
     /*
-    > BufferedReader - improves performance when loading Java files,
+    > INFO: BufferedReader - improves performance when loading Java files,
          allows line-by-line reading, supports different encodings and offers a simple interface.
      > Always prepare exceptions when working with files.
      */
@@ -32,8 +31,7 @@ public class ShoppingCart {
                 if (parts.length != 6) throw  new ShoppingCartException(
                         "Nesprávný počet položek na řádku číslo: " + lineCounter + ": "+line+"!");
 
-                //Each part is created on the basis of the data contained in the file. From left to right.
-                //the array starts from zero
+                //From the text file convert the 'text' to 'values'. Starts from the left to right.
                 LocalDateTime time = LocalDateTime.parse(parts[0]);
                 BigDecimal price = new BigDecimal(parts[1]);
                 int quantity = Integer.parseInt(parts[2]);
@@ -50,8 +48,35 @@ public class ShoppingCart {
         }
     }
 
+    public void saveContentToFile(String fileName) throws ShoppingCartException {
+        String delimiter = Settings.getDelimiter();
+        try (PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(fileName)))) {
+            for (Item item : items) {
+                writer.println(item.getReservationTime() + delimiter
+                        + item.getPrice() + delimiter
+                        + item.getQuantityOfItem() + delimiter
+                        + item.getCategory() + delimiter
+                        + item.getDescription() + delimiter
+                        + (item.getOnStock() ? "ano" : "ne"));
+            }
+        } catch (FileNotFoundException e) {
+            throw new ShoppingCartException("Soubor " + fileName + " nebyl nalezen!\n"
+                    + e.getLocalizedMessage());
+        } catch (IOException e) {
+            throw new ShoppingCartException("Chyba výstupu při zápisu do souboru: " + fileName
+                    +":\n"+ e.getLocalizedMessage());
+        }
+    }
 
 
+
+
+
+    //creates a copy of the items list and returns it as a new list.
+    //changes made to the returned list do not affect the original list items - SAVER OPTION
+    public List<Item> getItems() {
+        return new ArrayList<>(items);
+    }
 
     //add item
     public void addItem(Item item) {

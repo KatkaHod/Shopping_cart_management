@@ -85,6 +85,7 @@ public class Item {
         this.category = category;
     }
 
+
     @Override
     public String toString() {
         return "Item{" +
@@ -93,7 +94,10 @@ public class Item {
                 ", reservationTime=" + reservationTime +
                 ", isOnStock=" + isOnStock +
                 ", quantityOfItem=" + quantityOfItem +
-                ", category=" + category +
-                '}';
-    }
+                ", category=" + category + "\n" + '}';
+        }
+
+
 }
+
+

@@ -9,7 +9,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        // enum Category:
+       //test category
         Category category = Category.FOOD;
         System.out.println("Category: " + category);
 
@@ -18,9 +18,10 @@ public class Main {
         }
 
 
-        //Item - when call methods with exceptions, use try and catch in the main method
+        //TEST exception - Where is expected an error - always write with try (code) and catch (exception)
         try {
-            Item item = new Item("Bread", new BigDecimal("-25.0"));
+            Item item = new Item("Bread", new BigDecimal("25.0"));
+
         } catch (ShoppingCartException | IllegalArgumentException e) {
             System.err.println(
                     "Nastala chyba při vytváření položky košíku:\n " + e.getLocalizedMessage());
@@ -28,6 +29,10 @@ public class Main {
             System.err.println(
                     "Nastala neznámá chyba:\n " + e.getLocalizedMessage());
         }
+
+
+        //space
+        System.out.println();
 
 
         //ShoppingCart
@@ -38,8 +43,11 @@ public class Main {
 
         } catch (ShoppingCartException e) {
             System.err.println("Nastala chyba pri nacitani kosiku ze souboru: "
-                    + fileName + ": \n"+ e.getLocalizedMessage() + "Pokracuji s prazdnym kosikem.");
+                    + fileName + ": \n"+ e.getLocalizedMessage() + "Pokračuji s prázdným košíkem.");
         }
+
+        //Cart contents list:
+        System.out.println("Obsah košíku:\n" + cart.getItems());
 
 
 
