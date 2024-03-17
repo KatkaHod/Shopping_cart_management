@@ -83,8 +83,6 @@ public class ShoppingCart {
     }
 
 
-
-
     //creates a copy of the items list and returns it as a new list.
     //changes made to the returned list do not affect the original list items - SAVER OPTION
     public List<Item> getItems() {

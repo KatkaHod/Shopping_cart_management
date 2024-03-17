@@ -20,7 +20,7 @@ public class Main {
 
         //TEST exception - Where is expected an error - always write with try (code) and catch (exception)
         try {
-            Item item = new Item("Bread", new BigDecimal("25.0"));
+            Item item = new Item("Bread", new BigDecimal("-25.0"));
 
         } catch (ShoppingCartException | IllegalArgumentException e) {
             System.err.println(
