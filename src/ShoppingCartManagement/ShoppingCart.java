@@ -20,17 +20,20 @@ public class ShoppingCart {
      */
     public void loadContentFromFile(String fileName) throws ShoppingCartException {
         int lineCounter = 0;
+        items.clear(); //when I add new entries the list will be deleted
         try (Scanner scanner = new Scanner(new BufferedReader(new FileReader(fileName))))  {
             while(scanner.hasNextLine()) {
-                lineCounter++;
+                lineCounter++; //for ShoppingCartException purpose - calculate lines (lineCounter)
+
                 String line = scanner.nextLine();
                 System.out.println(line);
-                String [] parts = line.split(";");
+                String [] parts = line.split(";"); //make from .txt each parts, which are describe below
 
                 if (parts.length != 6) throw  new ShoppingCartException(
                         "Nesprávný počet položek na řádku číslo: " + lineCounter + ": "+line+"!");
 
-                //Each part is created on the basis of the data contained in the file.
+                //Each part is created on the basis of the data contained in the file. From left to right.
+                //the array starts from zero
                 LocalDateTime time = LocalDateTime.parse(parts[0]);
                 BigDecimal price = new BigDecimal(parts[1]);
                 int quantity = Integer.parseInt(parts[2]);
@@ -38,7 +41,6 @@ public class ShoppingCart {
                 String description = parts[4];
                 boolean isOnStock = "ano".equals(parts[5]);
 
-                //constructor - add values from file
                 Item item = new Item(description, price, time, isOnStock, quantity, category);
                 items.add(item);
             }
