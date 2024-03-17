@@ -2,13 +2,13 @@
 package ShoppingCartManagement;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.time.LocalDateTime;
 
 public class ShoppingCart {
     private List <Item> items = new ArrayList<>();
@@ -23,18 +23,28 @@ public class ShoppingCart {
         try (Scanner scanner = new Scanner(new BufferedReader(new FileReader(fileName))))  {
             while(scanner.hasNextLine()) {
                 lineCounter++;
-
                 String line = scanner.nextLine();
                 System.out.println(line);
-                String [] parts = line.split(",");
+                String [] parts = line.split(";");
 
                 if (parts.length != 6) throw  new ShoppingCartException(
                         "Nesprávný počet položek na řádku číslo: " + lineCounter + ": "+line+"!");
 
+                //Each part is created on the basis of the data contained in the file.
+                LocalDateTime time = LocalDateTime.parse(parts[0]);
+                BigDecimal price = new BigDecimal(parts[1]);
+                int quantity = Integer.parseInt(parts[2]);
+                Category category = Category.valueOf(parts[3]);
+                String description = parts[4];
+                boolean isOnStock = "ano".equals(parts[5]);
+
+                //constructor - add values from file
+                Item item = new Item(description, price, time, isOnStock, quantity, category);
+                items.add(item);
             }
 
         } catch (FileNotFoundException e) {
-            System.err.println("Error while reading file: " + e.getLocalizedMessage());
+            throw new ShoppingCartException("Soubor " + fileName + "nebyl nalezen!\n" + e.getLocalizedMessage());
         }
     }
 
