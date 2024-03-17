@@ -15,10 +15,4 @@ public enum Category {
         return description;
     }
 
-    @Override
-    public String toString() {
-        return "Category{" +
-                "description='" + description + '\'' +
-                '}';
-    }
 }

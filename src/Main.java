@@ -50,8 +50,25 @@ public class Main {
         System.out.println("Obsah košíku:\n" + cart.getItems());
 
 
+        //add item to cart:
+        try {
+            Item item = new Item("Bread",
+                    new BigDecimal("25.0"));
+            cart.addItem(item);
+        } catch (ShoppingCartException e) {
+            System.err.println(
+                    "Nastala chyba při přidávání položky do košíku:\n "
+                            +e.getLocalizedMessage());
+        }
 
 
+        //save content to file
+        try {
+            cart.saveContentToFile(Settings.getFilename());
+        } catch (ShoppingCartException e) {
+            System.err.println("Nastala chyba při ukládání obsahu košíku do souboru:" + Settings.getFilename()+ ":\n "
+                            +e.getLocalizedMessage());
+        }
 
 
     }

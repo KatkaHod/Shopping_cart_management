@@ -3,6 +3,7 @@ package ShoppingCartManagement;
 
 import java.io.*;
 import java.math.BigDecimal;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -46,7 +47,20 @@ public class ShoppingCart {
         } catch (FileNotFoundException e) {
             throw new ShoppingCartException("Soubor " + fileName + "nebyl nalezen!\n" + e.getLocalizedMessage());
         }
+        catch (NumberFormatException e) {
+            throw new ShoppingCartException("Chyba při čtení číselné hodnoty na řádku číslo: "+lineCounter+":\n"
+                    + e.getLocalizedMessage());
+        } catch (IllegalArgumentException e) {
+            throw new ShoppingCartException("Chyba při čtení kategorie na řádku číslo: "+lineCounter+":\n"
+                    + e.getLocalizedMessage());
+        } catch (DateTimeParseException e) {
+            throw new ShoppingCartException("Chyba při čtení data na řádku číslo: "+lineCounter+":\n"
+                    + e.getLocalizedMessage());
+
+        }
+
     }
+
 
     public void saveContentToFile(String fileName) throws ShoppingCartException {
         String delimiter = Settings.getDelimiter();
@@ -67,7 +81,6 @@ public class ShoppingCart {
                     +":\n"+ e.getLocalizedMessage());
         }
     }
-
 
 
 
